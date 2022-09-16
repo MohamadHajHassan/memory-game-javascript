@@ -10,13 +10,11 @@ window.onload = () => {
     `<img src="images/js-logo.png" alt="" />`,
     `<img src="images/js-logo.png" alt="" />`,
   ];
+  let winsDisplay = document.getElementById("wins-display");
+  let score = document.getElementById("score");
+  let btn = document.getElementById("btn");
   let counter = 0;
-  const card1 = document.getElementById("card1");
-  const card2 = document.getElementById("card2");
-  const card3 = document.getElementById("card3");
-  const card4 = document.getElementById("card4");
-  const card5 = document.getElementById("card5");
-  const card6 = document.getElementById("card6");
+  let wins = 0;
 
   //   Functions
   const shuffle = array => {
@@ -46,11 +44,15 @@ window.onload = () => {
       counter++;
     });
   };
-  
+
   const addListenerChecker = item => {
     item.addEventListener("click", () => {
       if (counter >= 2) {
         const visibleCards = document.querySelectorAll(".visible");
+        visibleCards[0].children[0].classList.toggle("erase");
+        visibleCards[0].children[1].classList.toggle("erase");
+        visibleCards[1].children[0].classList.toggle("erase");
+        visibleCards[1].children[1].classList.toggle("erase");
         if (
           visibleCards[0].children[1].children[0].src ==
           visibleCards[1].children[1].children[0].src
@@ -60,10 +62,6 @@ window.onload = () => {
           visibleCards[0].classList.toggle("visible");
           visibleCards[1].classList.toggle("visible");
         } else {
-          visibleCards[0].children[0].classList.toggle("erase");
-          visibleCards[0].children[1].classList.toggle("erase");
-          visibleCards[1].children[0].classList.toggle("erase");
-          visibleCards[1].children[1].classList.toggle("erase");
           visibleCards[0].classList.toggle("visible");
           visibleCards[1].classList.toggle("visible");
         }
@@ -72,9 +70,36 @@ window.onload = () => {
     });
   };
 
+  const winCheck = () => {
+    const hiddenCards = document.querySelectorAll(".hidden");
+    if (hiddenCards.length == 6) {
+      wins++;
+      winsDisplay.innerText = `You win!`;
+      setInterval(() => {
+        winsDisplay.innerText = ``;
+      }, 750);
+      score.innerHTML = wins;
+    }
+  };
+  const addListenerWinCheck = item => {
+    item.addEventListener("click", winCheck);
+  };
+  const restart = () => {
+    const hiddenCards = document.querySelectorAll(".hidden");
+    hiddenCards.forEach(item => {
+      item.classList.remove("hidden");
+    });
+    shuffle(cardsArray);
+    assignCards(backDiv, cardsArray);
+    counter = 0;
+  };
+
   //
+  score.innerHTML = wins;
   shuffle(cardsArray);
   assignCards(backDiv, cardsArray);
   cards.forEach(addListener);
   cards.forEach(addListenerChecker);
+  cards.forEach(addListenerWinCheck);
+  btn.addEventListener("click", restart);
 };
