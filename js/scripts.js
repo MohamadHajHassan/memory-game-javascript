@@ -1,6 +1,7 @@
 window.onload = () => {
   // Variables
   const backDiv = document.querySelectorAll(".back");
+  const cards = document.querySelectorAll(".card");
   const cardsArray = [
     `<img src="images/html-logo.png" alt="" />`,
     `<img src="images/html-logo.png" alt="" />`,
@@ -9,6 +10,7 @@ window.onload = () => {
     `<img src="images/js-logo.png" alt="" />`,
     `<img src="images/js-logo.png" alt="" />`,
   ];
+  let counter = 0;
   const card1 = document.getElementById("card1");
   const card2 = document.getElementById("card2");
   const card3 = document.getElementById("card3");
@@ -38,20 +40,41 @@ window.onload = () => {
 
   const addListener = item => {
     item.addEventListener("click", () => {
-      const section = document.querySelectorAll(`#${item.id} section`);
-      section[0].classList.toggle("erase");
-      const div = document.querySelectorAll(`#${item.id} div`);
-      div[0].classList.toggle("erase");
+      item.children[0].classList.toggle("erase");
+      item.children[1].classList.toggle("erase");
+      item.classList.toggle("visible");
+      counter++;
+    });
+  };
+  
+  const addListenerChecker = item => {
+    item.addEventListener("click", () => {
+      if (counter >= 2) {
+        const visibleCards = document.querySelectorAll(".visible");
+        if (
+          visibleCards[0].children[1].children[0].src ==
+          visibleCards[1].children[1].children[0].src
+        ) {
+          visibleCards[0].classList.add("hidden");
+          visibleCards[1].classList.add("hidden");
+          visibleCards[0].classList.toggle("visible");
+          visibleCards[1].classList.toggle("visible");
+        } else {
+          visibleCards[0].children[0].classList.toggle("erase");
+          visibleCards[0].children[1].classList.toggle("erase");
+          visibleCards[1].children[0].classList.toggle("erase");
+          visibleCards[1].children[1].classList.toggle("erase");
+          visibleCards[0].classList.toggle("visible");
+          visibleCards[1].classList.toggle("visible");
+        }
+        counter = 0;
+      }
     });
   };
 
   //
   shuffle(cardsArray);
   assignCards(backDiv, cardsArray);
-  addListener(card1);
-  addListener(card2);
-  addListener(card3);
-  addListener(card4);
-  addListener(card5);
-  addListener(card6);
+  cards.forEach(addListener);
+  cards.forEach(addListenerChecker);
 };
