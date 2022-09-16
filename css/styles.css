@@ -10,7 +10,12 @@ img {
 
 /* Utilities */
 .container {
-  width: 100%;
+  width: 500px;
+  height: auto;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  border: 1px solid black;
 }
 .flex-column-container {
   display: flex;
@@ -22,4 +27,23 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.hidden {
+  visibility: hidden;
+}
+.erase {
+  display: none;
+}
+
+.card {
+  border: 1px solid red;
+  padding: 10px;
+  margin: 10px;
+}
+.card:hover {
+  cursor: pointer;
+}
+.card img {
+  height: 120px;
+  width: 120px;
 }
