@@ -8,3 +8,18 @@ img {
   height: 100%;
 }
 
+/* Utilities */
+.container {
+  width: 100%;
+}
+.flex-column-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
