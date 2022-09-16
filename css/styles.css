@@ -47,3 +47,10 @@ img {
   height: 120px;
   width: 120px;
 }
+
+.front {
+  background-color: aqua;
+  border: 1px solid red;
+  height: 120px;
+  width: 120px;
+}
